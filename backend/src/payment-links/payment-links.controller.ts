@@ -1,4 +1,3 @@
-
 import {
   Body,
   Controller,
@@ -16,13 +15,14 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class PaymentLinksController {
   constructor(private readonly service: PaymentLinksService) {}
 
+  //  Merchant creates a payment link
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Req() req, @Body() dto: CreatePaymentLinkDto) {
     return this.service.create(req.user.sub, dto.productId);
   }
 
-  // ✅ ADD THIS
+  // Public payment link (used by checkout page)
   @Get(':slug')
   getBySlug(@Param('slug') slug: string) {
     return this.service.getBySlug(slug);

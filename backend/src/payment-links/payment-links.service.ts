@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { randomUUID } from 'crypto';
 
@@ -6,7 +10,7 @@ import { randomUUID } from 'crypto';
 export class PaymentLinksService {
   constructor(private prisma: PrismaService) {}
 
-  // 🔐 Create payment link
+  // Create payment link (merchant only)
   async create(merchantId: string, productId: string) {
     // 1️⃣ Verify product belongs to merchant
     const product = await this.prisma.product.findFirst({
@@ -31,11 +35,12 @@ export class PaymentLinksService {
         merchantId,
         productId,
         slug,
+        isActive: true,
       },
     });
   }
 
-  // 🌍 PUBLIC – Get payment link by slug
+  //  PUBLIC – Resolve payment link by slug
   async getBySlug(slug: string) {
     const link = await this.prisma.paymentLink.findUnique({
       where: { slug },
@@ -45,9 +50,10 @@ export class PaymentLinksService {
     });
 
     if (!link || !link.isActive) {
-      throw new BadRequestException('Payment link not found');
+      throw new NotFoundException('Payment link not found or inactive');
     }
 
+    //  Public-safe response
     return {
       id: link.id,
       slug: link.slug,

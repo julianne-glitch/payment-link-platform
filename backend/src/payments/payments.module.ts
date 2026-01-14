@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
-import { PaymentsController } from './payments.controller';
 import { PaymentsService } from './payments.service';
-import { PaymentsWebhookController } from './payments.webhook.controller';
-import { PrismaService } from '../prisma/prisma.service';
+import { PaymentsController } from './payments.controller';
+import { PrismaModule } from '../prisma/prisma.module';
+import { RedisModule } from '../redis/redis.module';
 
 @Module({
-  controllers: [
-    PaymentsController,
-    PaymentsWebhookController,
+  imports: [
+    PrismaModule,
+    RedisModule,   // ✅ THIS IS THE FIX
   ],
-  providers: [
-    PaymentsService,
-    PrismaService,
-  ],
+  controllers: [PaymentsController],
+  providers: [PaymentsService],
 })
 export class PaymentsModule {}

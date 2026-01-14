@@ -4,6 +4,7 @@ import {
   Post,
   Get,
   Param,
+  Headers,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 
@@ -13,6 +14,7 @@ export class PaymentsController {
 
   @Post()
   createPayment(
+    @Headers('idempotency-key') idempotencyKey: string,
     @Body()
     body: {
       paymentLinkId: string;
@@ -22,7 +24,7 @@ export class PaymentsController {
       amount: number;
     },
   ) {
-    return this.service.create(body);
+    return this.service.create(body, idempotencyKey);
   }
 
   @Get(':id')
