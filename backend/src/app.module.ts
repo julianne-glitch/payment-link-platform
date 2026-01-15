@@ -5,13 +5,15 @@ import { PaymentLinksModule } from './payment-links/payment-links.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PaymentsModule } from './payments/payments.module';
 import { RedisModule } from './redis/redis.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
-    RedisModule,          // ✅ ADD THIS
+    RedisModule,
     AuthModule,
+    ProductsModule,      // ✅ THIS WAS MISSING
     PaymentLinksModule,
     PaymentsModule,
   ],

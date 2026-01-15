@@ -13,6 +13,7 @@ export class PaymentsWebhookController {
       status: 'SUCCESS' | 'FAILED';
     },
   ) {
-    return this.service.updateStatus(body.paymentId, body.status);
+   return this.service.completePayment(body.paymentId, body.status);
+
   }
 }

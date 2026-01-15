@@ -5,14 +5,15 @@ import {
   Get,
   Param,
   Headers,
+  Res,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
+import type { Response } from 'express';
 
 @Controller('payments')
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}
 
-  // 1️⃣ Create payment (idempotent)
   @Post()
   createPayment(
     @Headers('idempotency-key') idempotencyKey: string,
@@ -28,18 +29,24 @@ export class PaymentsController {
     return this.service.create(body, idempotencyKey);
   }
 
-  // 2️⃣ Poll payment status
   @Get(':id')
   getPayment(@Param('id') id: string) {
     return this.service.getById(id);
   }
 
-  // 3️⃣ Mock webhook — mark payment SUCCESS / FAILED
   @Post(':id/status')
   updatePaymentStatus(
     @Param('id') id: string,
     @Body() body: { status: 'SUCCESS' | 'FAILED' },
   ) {
-    return this.service.updateStatus(id, body.status);
+    return this.service.completePayment(id, body.status);
+  }
+
+  @Get(':id/receipt')
+  downloadReceipt(
+    @Param('id') id: string,
+    @Res() res: Response,
+  ) {
+    return this.service.generateReceipt(id, res);
   }
 }
