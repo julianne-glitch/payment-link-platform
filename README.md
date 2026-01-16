@@ -118,7 +118,7 @@ cp .env.example .env.local
 NEXT_PUBLIC_API_URL=http://localhost:3001
 
 ## How to Run Locally
-1️⃣ Backend
+### Backend
 cd backend
 npm install
 npx prisma migrate dev
@@ -128,7 +128,7 @@ npm run start:dev
 Backend runs on:
 http://localhost:3001
 
-2️⃣ Frontend
+### Frontend
 cd frontend
 npm install
 npm run dev
@@ -201,7 +201,21 @@ Input validation
 Redis-backed idempotency protection
 
 Merchant data isolation
+# Merchant Dashboard & Access Control
 
+Merchant access is implemented through JWT-protected, merchant-scoped API endpoints, which collectively form the merchant dashboard.
+
+Authenticated merchants can:
+
+Create and manage products
+
+Generate payment links
+
+View and track payment statuses
+
+All merchant routes are protected using authentication guards, and data access is strictly scoped to the authenticated merchant.
+
+This approach mirrors real-world payment platforms, where the backend enforces access control and the dashboard UI is simply a consumer of these protected APIs. A lightweight frontend integration is provided to demonstrate this flow, while the core access control and business logic remain backend-driven.
 # Assumptions
 
 Mobile Money provider operates in staging mode
