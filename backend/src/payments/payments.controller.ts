@@ -14,20 +14,21 @@ import type { Response } from 'express';
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}
 
-  @Post()
-  createPayment(
-    @Headers('idempotency-key') idempotencyKey: string,
-    @Body()
-    body: {
-      paymentLinkId: string;
-      customerName: string;
-      customerEmail: string;
-      momoNumber: string;
-      amount: number;
-    },
-  ) {
-    return this.service.create(body, idempotencyKey);
-  }
+ @Post()
+createPayment(
+  @Headers('idempotency-key') idempotencyKey: string,
+  @Body()
+  body: {
+    paymentLinkId: string;
+    customerName: string;
+    customerEmail: string;
+    momoNumber: string;
+    amount: number;
+    provider: 'MOMO' | 'OM'; // ✅ REQUIRED
+  },
+) {
+  return this.service.create(body, idempotencyKey);
+}
 
   @Get(':id')
   getPayment(@Param('id') id: string) {

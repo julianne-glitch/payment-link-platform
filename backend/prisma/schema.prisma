@@ -57,7 +57,7 @@ model Payment {
   momoNumber    String
   amount        Int
   status        PaymentStatus @default(PENDING)
-  externalRef   String?
+  externalReference   String?
   createdAt     DateTime      @default(now())
 
   paymentLink PaymentLink @relation(fields: [paymentLinkId], references: [id])

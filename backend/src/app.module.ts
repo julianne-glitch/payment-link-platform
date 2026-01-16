@@ -13,7 +13,7 @@ import { ProductsModule } from './products/products.module';
     PrismaModule,
     RedisModule,
     AuthModule,
-    ProductsModule,      // ✅ THIS WAS MISSING
+    ProductsModule,      //  THIS WAS MISSING
     PaymentLinksModule,
     PaymentsModule,
   ],

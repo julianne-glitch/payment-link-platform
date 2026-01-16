@@ -1,8 +1,18 @@
 import { Module } from '@nestjs/common';
-import { RedisProvider } from './redis.provider';
+import Redis from 'ioredis';
 
 @Module({
-  providers: [RedisProvider],
-  exports: [RedisProvider],
+  providers: [
+    {
+      provide: 'REDIS_CLIENT',
+      useFactory: () => {
+        return new Redis({
+          host: '127.0.0.1',
+          port: 6379,
+        });
+      },
+    },
+  ],
+  exports: ['REDIS_CLIENT'], // ✅ THIS IS CRITICAL
 })
 export class RedisModule {}
