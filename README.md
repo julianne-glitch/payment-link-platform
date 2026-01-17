@@ -5,12 +5,14 @@ A full-stack Payment Link Platform that allows merchants to create products and 
 This project was built as part of a technical assessment and demonstrates real-world backend and frontend architecture, security practices, caching, idempotency, and third-party API integration.
 
 # Product Management Scope
+git status
+Basic product creation and inventory handling were implemented to support the payment flow.
 
-For the purpose of this assessment, basic product creation and inventory handling were implemented to support the payment flow.
+The primary focus of the system is payment link generation, payment processing,
+idempotency, caching, and checkout reliability.
 
-However, the primary focus of the system is on payment link generation, payment processing, idempotency, caching, and checkout reliability.
-
-This mirrors real-world payment platforms, where payment services typically integrate with an existing product or order system rather than managing the full product lifecycle.
+This mirrors real-world payment platforms where payment services integrate
+with an existing product or order system.
 
 # Features
 ## Merchant Features
@@ -267,14 +269,10 @@ in the database, and the frontend UI automatically reflects the change.
 
 # Upon successful payment:
 
-The payment status updates from PENDING to SUCCESS
+After payment submission, the frontend polls the backend for payment status.
+Payments are initially created with a `PENDING` status and transition to
+`SUCCESS` or `FAILED` once confirmed by the backend.
 
-Product quantity is reduced if the product is limited
-
-The receipt download button becomes available to the client
-
-This approach mirrors real-world payment systems, where asynchronous payment
-confirmation is handled via polling or webhook-based updates.
 # Assumptions
 
 Mobile Money provider operates in staging mode
