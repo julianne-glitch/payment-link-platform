@@ -287,20 +287,20 @@ Webhook signature verification
 
 # recommended screnshots
 ## merchant account creation
-![alt text](image.png)
+![alt text](backend/screenshots/image.png)
 ## merchant loggin
-![alt text](image-1.png)
+![alt text](backend/screenshots/image-1.png)
 ## merchant product creation
-![alt text](image-2.png)
+![alt text](backend/screenshots/image-2.png)
 ## payment link creation
-![alt text](image-3.png)
+![alt text](backend/screenshots/image-3.png)
 ## plublic link with product and info
-![alt text](image-4.png)
+![alt text](backend/screenshots/image-4.png)
 ## status change when payment info is submitted
-![alt text](image-5.png)
+![alt text](backend/screenshots/image-5.png)
 ## webhooks calls backend and status change
-![alt text](image-7.png)
-![alt text](image-6.png)
+![alt text](backend/screenshots/image-6.png)
+![alt text](backend/screenshots/image-7.png)
 #  reciept generation
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](backend/screenshots/image-8.png)
+![alt text](backend/screenshots/image-9.png)
